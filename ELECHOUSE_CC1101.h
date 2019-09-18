@@ -181,6 +181,8 @@ class ELECHOUSE_CC1101
 		void SetReceive(void);
 		byte CheckReceiveFlag(void);
 		byte ReceiveData(byte *rxBuffer);
+		void Sleep(bool powerDown);
+		void WakeUp();
 };
 
 extern ELECHOUSE_CC1101 ELECHOUSE_cc1101;

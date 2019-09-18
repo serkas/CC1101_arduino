@@ -161,6 +161,27 @@ void ELECHOUSE_CC1101::Init(byte f)
 	SpiWriteBurstReg(CC1101_PATABLE,PaTabel,8);		//CC1101 PATABLE config
 }
 
+/**
+ * Put the CC1101 into soft sleep state
+ */
+void ELECHOUSE_CC1101::Sleep(bool powerDown)
+{
+    if ( powerDown ) {
+        SpiStrobe(CC1101_SPWD);
+    } else {
+        SpiStrobe(CC1101_SXOFF);
+    }
+}
+
+/**
+ * Wake the CC1101 from sleep state
+ */
+void ELECHOUSE_CC1101::WakeUp()
+{
+    digitalWrite(SS_PIN, LOW);
+    delay(1);
+    digitalWrite(SS_PIN, HIGH);
+}
 
 /****************************************************************
 *FUNCTION NAME:SpiWriteReg
@@ -332,7 +353,7 @@ void ELECHOUSE_CC1101::RegConfigSettings(byte f)
     SpiWriteReg(CC1101_IOCFG0,   0x06);  	//asserts when sync word has been sent/received, and de-asserts at the end of the packet 
     SpiWriteReg(CC1101_PKTCTRL1, 0x04);		//two status bytes will be appended to the payload of the packet,including RSSI LQI and CRC OK
 											//No address check
-    SpiWriteReg(CC1101_PKTCTRL0, 0x05);		//whitening off;CRC Enable£»variable length packets, packet length configured by the first byte after sync word
+    SpiWriteReg(CC1101_PKTCTRL0, 0x05);		//whitening off;CRC Enableï¿½ï¿½variable length packets, packet length configured by the first byte after sync word
     SpiWriteReg(CC1101_ADDR,     0x00);		//address used for packet filtration.
     SpiWriteReg(CC1101_PKTLEN,   0x3D); 	//61 bytes max length
 }
