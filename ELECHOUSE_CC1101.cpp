@@ -183,6 +183,14 @@ void ELECHOUSE_CC1101::WakeUp()
     digitalWrite(SS_PIN, HIGH);
 }
 
+/**
+ * Wake the CC1101 from sleep state
+ */
+void ELECHOUSE_CC1101::SetPATable(byte paTable[])
+{
+    SpiWriteBurstReg(CC1101_PATABLE,paTable,8);
+}
+
 /****************************************************************
 *FUNCTION NAME:SpiWriteReg
 *FUNCTION     :CC1101 write data to register

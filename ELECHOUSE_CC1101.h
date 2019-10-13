@@ -183,6 +183,7 @@ class ELECHOUSE_CC1101
 		byte ReceiveData(byte *rxBuffer);
 		void Sleep(bool powerDown);
 		void WakeUp();
+		void SetPATable(byte paTable[]);
 };
 
 extern ELECHOUSE_CC1101 ELECHOUSE_cc1101;
